@@ -1,78 +1,69 @@
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
 
-  btn = document.getElementById("btn")
-  newTask = document.getElementById("new-task-description")
-  myTodos = document.getElementById("list")
-  ul = document.getElementById("tasks")
-  li = document.createElement("li")
-  tasks = []
+  btn = document.getElementById("btn");
+  newTask = document.getElementById("new-task-description");
+  myTodos = document.getElementById("list");
+  ul = document.getElementById("tasks");
+  li = document.createElement("li");
+  tasks = [];
 
+  btn.addEventListener("click", submitTask);
 
+  function submitTask(event) {
+    event.preventDefault();
 
-  btn.addEventListener('click', submitTask)
+    const taskValue = newTask.value;
 
-  function submitTask(event){
-    event.preventDefault()
+    if (taskValue.trim() !== "") {
+      tasks.push(taskValue);
 
-    const taskValue = newTask.value
+      newTask.value = "";
 
-    if(taskValue.trim() !== ""){
+      displayTasks();
+    }
+  }
 
-     tasks.push( taskValue)
+  function displayTasks() {
+    // Clear the current list
+    ul.innerHTML = "";
 
-    
-    newTask.value =""
+    // Add each task to the list
+    tasks.forEach((task) => {
+      const li = document.createElement("li");
 
-    displayTasks()
+      //creates a container for the task text and delete button
+      const taskContainer = document.createElement("div");
+      taskContainer.style.display = "flex";
+      taskContainer.style.justifyContent = "space-between";
+      taskContainer.style.alignItems = "center";
+      taskContainer.style.width = "100%";
 
+      //Adds task text
+      const taskText = document.createElement("span");
+      taskText.textContent = task;
+      taskContainer.appendChild(taskText);
 
-    }  
-       
- }
+      //creates a delete button
+      const deletebtn = document.createElement("button");
+      deletebtn.innerText = "X";
+      deletebtn.style.marginLeft = "10px";
 
- function displayTasks() {
-  // Clear the current list
-  ul.innerHTML = ""
-  
-  // Add each task to the list
-  tasks.forEach(task => {
-    const li = document.createElement("li")
-
-    const taskContainer = document.createElement("div")
-      taskContainer.style.display = "flex"
-      taskContainer.style.justifyContent = "space-between"
-      taskContainer.style.alignItems = "center"
-      taskContainer.style.width = "100%"
-
-      const taskText = document.createElement("span")
-      taskText.textContent = task
-      taskContainer.appendChild(taskText)  
-
-      const btn = document.createElement("button")
-      btn.innerText = 'X'
-      btn.style.marginLeft = "10px"
-
-      btn.addEventListener('click', ()=> {
+      deletebtn.addEventListener("click", () => {
         // delete task from array
 
-        const index = tasks.indexOf(task)
-        if (index > -1){
-          tasks.splice(index, 1)
+        const index = tasks.indexOf(task);
+        if (index > -1) {
+          tasks.splice(index, 1);
         }
         //update display
 
-        displayTasks()
-      })
+        displayTasks();
+      });
 
-
-      taskContainer.appendChild(btn)
-      li.appendChild(taskContainer)
-      ul.appendChild(li)
-
-    
-    
-    
-  })
-}
+      taskContainer.appendChild(deletebtn);
+      li.appendChild(taskContainer);
+      ul.appendChild(li);
+    });
+  }
 });
