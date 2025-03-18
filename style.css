@@ -7,7 +7,7 @@ html {
 body {
   min-height: 100%;
   min-width: 100%;
-  background: linear-gradient(pink, violet);
+  background: linear-gradient(rgb(199, 196, 197), rgb(65, 63, 65));
 }
 
 button {
@@ -34,4 +34,67 @@ button {
   padding: 15px 20px 18px 18px;
   border-radius: 5px;
   box-shadow: 2px 5px 5px #333;
+  
+ 
+}
+
+#btn{
+  padding: 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #008000;
+  font-weight: bold;
+  cursor: pointer;
+
+}
+
+#new-task-description{
+
+  padding: 15px;
+  border-radius: 5px;
+  border: none
+}
+
+@media  screen and (max-width: 780px){
+  body{
+    background: gray;
+  }
+
+  #main-content{
+
+    display: grid;
+    grid-template-areas:
+    "heading"
+    "create-task-form" 
+    "list " 
+    ;
+
+  }
+  #heading{
+    grid-area: heading;
+  }
+
+  #create-task-form{
+    display: grid;
+    grid-template-areas:  
+     "label label"
+     "new-task-description btn";
+  }
+
+  #label{
+    grid-area: label;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+  #new-task-description{
+    grid-area: new-task-description;
+    margin-left: 10px;
+  }
+  #btn{
+    grid-area:btn;
+    margin-left: 10px;
+  }
+  #list{
+    grid-area: list;
+  }
 }
